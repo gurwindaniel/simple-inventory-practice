@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./head.ejs') %>
+
+    <title>Customer</title>
+</head>
+<body>
+    <%- include('./nav.ejs') %>
+    <div class="container d-inline">
+        <div class="row">
+        <%- include('./modal.ejs') %>
+        <div class="col-auto" id="buttonContainer"></div>
+    </div>
+    </div>
+
+    <div class="container">
+        
+        <table id="datatable">
+
+        </table>
+    </div>
+   
+<%- include('./tail.ejs') %>
+<script src="../public/script.js"></script>
+</body>
+</html>

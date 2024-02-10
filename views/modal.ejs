@@ -1,0 +1,45 @@
+<div class="col-auto">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Add Customer
+  </button>
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Customer Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form action="/custpost" method="post">
+                <div class="mb-3">
+                    <label for="customernameid"  class="form-label">Customer Name</label>
+                    <input type="text" name="customer_name" class="form-control" id="customernameid" >
+                   
+                  </div>
+                  <div class="mb-3">
+                    <label for="ageid"  class="form-label">Age</label>
+                    <input type="number" name="age" class="form-control" id="ageid" >
+                   
+                  </div>
+
+                <div class="mb-3">
+                  <label for="emailid" class="form-label">Email address</label>
+                  <input type="email" name="email" class="form-control" id="emailid" aria-describedby="emailHelp">
+                 
+                </div>
+                <div id="message"></div>
+                <div class="modal-footer">
+                    <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="custsave" class="btn btn-primary">Save</button>
+                  </div>
+               
+              </form>
+          
+        </div>
+       
+      </div>
+    </div>
+  </div>
