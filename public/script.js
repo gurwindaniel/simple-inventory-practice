@@ -67,19 +67,16 @@ $(document).ready(function(){
             })//click n+1 table
 
             // selecting checkbox event
-            const arr=[1000]
+            const arr=[10000]
             table.on('click','.checkid',function(){
                
                 var row = $(this).closest('tr');
                
         // Get the data in the row
-        var rowData = table.row(row).data();
-      
-
-               
-        
+        var rowData = table.row(row).data();    
         console.log(rowData)
         console.log(arr)
+        //Creating delete button when selected row
               if( $(this).is(':checked')){
                 arr.push(rowData.customer_id)
                
@@ -93,7 +90,7 @@ $(document).ready(function(){
                        if(arr.length==2)
                        {
                         $.ajax({
-                            url:`/custdelete:${arr[1]}`,
+                            url:`/custdelete:${arr[0]}`,
                             method:'delete'
                         })
                        }
