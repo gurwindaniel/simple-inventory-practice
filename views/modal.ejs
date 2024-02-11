@@ -13,7 +13,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form action="/custpost" method="post">
+            <form id="custform" action="/custpost" method="post">
+              <div id="edit_text"></div>
+              <div class="mb-3">
+                <label for="custid"  class="form-label">Customer ID</label>
+                <input type="number" style="display: none;" name="customer_id" class="form-control" id="custid" >
+               
+              </div>
                 <div class="mb-3">
                     <label for="customernameid"  class="form-label">Customer Name</label>
                     <input type="text" name="customer_name" class="form-control" id="customernameid" >
@@ -30,6 +36,7 @@
                   <input type="email" name="email" class="form-control" id="emailid" aria-describedby="emailHelp">
                  
                 </div>
+               
                 <div id="message"></div>
                 <div class="modal-footer">
                     <button type="button" id="close" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

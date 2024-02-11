@@ -115,6 +115,23 @@ app.delete('/custdelete:id',async(req,res)=>{
         client.release()
     }
 })
+
+//EDIT POST
+
+app.post('/custpatch',async(req,res)=>{
+    console.log(req.body)
+    const {customer_id,customer_name,age,email} =req.body
+    const client = await pool.connect()
+    try{
+       const result= await client.query('select updatecust($1,$2,$3,$4)',[customer_id,customer_name,age,email])
+       console.log(result.rows)
+        res.send(req.body).status(200)
+    }catch(e){
+        console.error(`custpatch error ${e}`)
+    }finally{
+        client.release()
+    }
+})
 app.listen(port,()=>{
     console.log(`listening to the port no ${port}`)
 })

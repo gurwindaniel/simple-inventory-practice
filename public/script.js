@@ -1,6 +1,14 @@
 $(document).ready(function(){
 
-    
+    $("#custid").prop('disabled',true)
+    $("#close").on('click',function(){
+
+        $(".modal-body > form").attr('action','/custpost')
+        $('input').css('border','1px solid red')
+        $('input').val('')
+        $('#edit_text').empty()
+       
+    })
     //close refresh
     const close=()=>{
      
@@ -60,15 +68,61 @@ $(document).ready(function(){
                 
             })//closing data table
 
-            table.on('click','tbody tr td:nth-child(n+2)',function(){
-               var data=table.row(this).data()
-               $('#exampleModal').modal('toggle')
-              get_data(data.customer_name,data.age,data.email)
+            table.on('click','tbody tr',function(){
+   
+              //Remove borders of input
+                $('input').css('border','none')
+                $('#custid').show()
+                $(".modal-body > form").attr('action','/custpatch')
+                // Add View Text
+                if( $("#edit_text").children().length<1)
+                {
+                    edit_element=$('<h5></h5>').text("Edit")
+                    $("#edit_text").append(edit_element)
+                    $("#edit_text").addClass('text-end')
+                    edit_element.hover(function(){
+                        edit_element.css({
+                            'cursor':'pointer',
+                            'color' :'red'
+                        })
+
+                        edit_element.mouseleave(function(){
+                            edit_element.css({
+                                'cursor':'default',
+                                'color' :'black'
+                            })
+                        })
+                        //disable input box
+                        $('#custid').prop('disabled',true)
+
+                        // Edit Event
+                        edit_element.on('click',function(){
+                            
+                           $(".modal-body > form").attr('action','/custpatch')
+                           
+                           $('input').css('border','1px solid black')
+                          
+                            })
+                    })
+                }
+               
+                
+                
+
+                var data=table.row(this).data()
+              
+                $('#exampleModal').modal('toggle')
+
+                
+               get_data(data.customer_name,data.age,data.email,data.customer_id)
+
             })//click n+1 table
 
             // selecting checkbox event
             const arr=[10000]
             table.on('click','.checkid',function(){
+               
+                $('#exampleModal').modal('close')
                
                 var row = $(this).closest('tr');
                
@@ -134,22 +188,27 @@ $(document).ready(function(){
         customer.customer_name=$('#customernameid').val()
         customer.age=$('#ageid').val()
         customer.email=$('#emailid').val()
-
+        customer.customer_id=$("#custid").val()
+        
         return customer
     }
 
-    const get_data=(customer,age,email)=>{
-       
+    const get_data=(customer,age,email,custid)=>{
+      
         $('#customernameid').val(customer)
       $('#ageid').val(age)
         $('#emailid').val(email)
-
+        $("#custid").val(custid)
         return customer
     }
 
     $('#custsave').on('click',function(e){
+        
+        // Save Form
+        if( $(".modal-body > form").attr('action')=='/custpost')
+        {
+            const value=inputFetch()
 
-        const value=inputFetch()
         close()
         
         $.ajax({
@@ -162,7 +221,30 @@ $(document).ready(function(){
                 close()
             }
         })
-       
+        //edit form
+    }else if($(".modal-body > form").attr('action')=='/custpatch')
+    {
+        const customer={}
+        customer.customer_name=$('#customernameid').val()
+        customer.age=$('#ageid').val()
+        customer.email=$('#emailid').val()
+        customer.customer_id=$("#custid").val()
+        
+        alert(customer.customer_id)
+        $.ajax({
+            url:'/custpatch',
+            method:'post',
+            type:'json',
+            data:customer,
+            success:function(){
+                message("Edited value")
+              
+            }
+        })
+    }
+
+
     })
+    
 
 })
