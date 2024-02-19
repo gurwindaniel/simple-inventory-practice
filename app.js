@@ -55,7 +55,7 @@ app.get('/cust',async(req,res)=>{
     const client=await pool.connect()
     try{
         const value = await client.query('SELECT * from customer')
-        console.log(value.rows)
+        // console.log(value.rows)
         res.send(value.rows).status(200)
     }catch(e){
 
@@ -84,7 +84,7 @@ app.delete('/custdelete:id',async(req,res)=>{
     const client=await pool.connect()
     // splitting the : to create an array
     const id =req.params.id.split(':')
-    console.log(id.length)
+    // console.log(id.length)
    //if more than one value selected for deletion
     if(id.length>=2){
         // const arr=[]
@@ -119,12 +119,12 @@ app.delete('/custdelete:id',async(req,res)=>{
 //EDIT POST
 
 app.post('/custpatch',async(req,res)=>{
-    console.log(req.body)
+    // console.log(req.body)
     const {customer_id,customer_name,age,email} =req.body
     const client = await pool.connect()
     try{
        const result= await client.query('select updatecust($1,$2,$3,$4)',[customer_id,customer_name,age,email])
-       console.log(result.rows)
+    //    console.log(result.rows)
         res.send(req.body).status(200)
     }catch(e){
         console.error(`custpatch error ${e}`)
@@ -132,6 +132,54 @@ app.post('/custpatch',async(req,res)=>{
         client.release()
     }
 })
+
+//render user page
+
+app.get('/user',async(req,res)=>{
+    const client = await pool.connect()
+    try{
+
+        const role_name=await client.query('select role_name from roles')
+        console.log(role_name.rows)
+     
+        res.render('userform',{roles:role_name.rows})
+       
+    }catch(e){
+        console.log(`users error ${e}`)
+    }finally{
+        client.release()
+    }
+})
+
+//User Form Submission
+
+app.post('/userpost',async(req,res)=>{
+    const client=await pool.connect()
+    console.log(req.body)
+    try{
+        const email_valid=await client.query('select duplicate_email($1)',[req.body.email])
+        console.log(email_valid.rows[0].duplicate_email)
+        if(!email_valid.rows[0].duplicate_email)
+        {
+           const role_id= await client.query('select role_id from roles where role_name = $1',[req.body.role_name])
+            await client.query('INSERT INTO users (name,email,role_id) values ($1,$2,$3)',[req.body.name,req.body.email, role_id.rows[0].role_id])
+            console.log(typeof(role_id.rows[0].role_id))
+            res.send(req.body).status(200)
+        }
+        else{
+            console.log("invalid")
+            res.send("Invalid").status(404)
+        }
+        
+    }catch(e){
+        console.log(`user post error ${e}`)
+    }finally{
+        client.release()
+    }
+
+})
+
+
 app.listen(port,()=>{
     console.log(`listening to the port no ${port}`)
 })

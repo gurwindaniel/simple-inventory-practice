@@ -69,7 +69,7 @@ $(document).ready(function(){
             })//closing data table
 
             table.on('click','tbody tr',function(){
-   
+               
               //Remove borders of input
                 $('input').css('border','none')
                 $('#custid').show()
@@ -110,8 +110,10 @@ $(document).ready(function(){
                 
 
                 var data=table.row(this).data()
-              
+              $(this).on('click','td:not(:first-child)',function(){
                 $('#exampleModal').modal('toggle')
+              })
+                
 
                 
                get_data(data.customer_name,data.age,data.email,data.customer_id)
@@ -119,10 +121,10 @@ $(document).ready(function(){
             })//click n+1 table
 
             // selecting checkbox event
-            const arr=[10000]
+            const arr=[1000]
             table.on('click','.checkid',function(){
-               
-                $('#exampleModal').modal('close')
+             
+             
                
                 var row = $(this).closest('tr');
                
@@ -133,9 +135,11 @@ $(document).ready(function(){
         //Creating delete button when selected row
               if( $(this).is(':checked')){
                 arr.push(rowData.customer_id)
+            
                
                 if($('#buttonContainer').children().length<1)
                 {
+                   
                     var deleteButton=$("<button></button>").text("Delete").addClass('btn btn-danger')
                     table.$('tr.selected').removeClass('selected');
                     row.addClass('selected');
@@ -164,7 +168,8 @@ $(document).ready(function(){
                 
                 indexToRemove=arr.indexOf(parseInt($(this).val()))
                removed_value =arr.splice(indexToRemove,1)
-
+                
+                
              
               row.removeClass('selected');
                console.log(`index ${indexToRemove} removed value ${removed_value}`)
