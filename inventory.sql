@@ -98,8 +98,9 @@ CREATE TABLE users(
     user_date timestamp default current_timestamp
 );
 
-INSERT INTO users (name,email,role_id) values ('virat','virat@gmail.com',1)
-INSERT INTO users (name,email,role_id) values ('gurwin','gurwin@gmail.com',1)
+ALTER TABLE users add column password varchar;
+INSERT INTO users (name,email,role_id,password) values ('virat','virat@gmail.com',1,'123');
+INSERT INTO users (name,email,role_id,password) values ('gurwin','gurwin@gmail.com',1,'123');
 
 --Duplicate email
 
