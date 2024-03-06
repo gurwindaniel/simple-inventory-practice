@@ -99,8 +99,8 @@ CREATE TABLE users(
 );
 
 ALTER TABLE users add column password varchar;
-INSERT INTO users (name,email,role_id,password) values ('virat','virat@gmail.com',1,'123');
-INSERT INTO users (name,email,role_id,password) values ('gurwin','gurwin@gmail.com',1,'123');
+INSERT INTO users (name,email,role_id,password) values ('admin','admin@gmail.com',1,'$2a$10$bxAXQfGYB9sWA.B03tG.AOpVVD/GPdRIryoCvFRcid7/wci1w7rcu');
+-- email : danielgurwin@gmail.com password : 123
 
 --Duplicate email
 

@@ -3,6 +3,7 @@ const session = require('express-session');
 const app=express()
 const port =process.env.PORT || 3000
 const {Pool}=require('pg')
+
 require('dotenv').config()
 
 const bodyparser=require('body-parser')
@@ -115,7 +116,7 @@ const pool=new Pool({
 app.get('/',async(req,res)=>{
     try{
 
-       res.render('login')
+       res.render('login',{message:req.flash('error')})
     }
     catch(e){
         console.log(`Error in getting a page ${e}`)
@@ -156,7 +157,8 @@ app.post('/custpost',async(req,res)=>{
   
     try{
 
-        await client.query('insert into customer (customer_name,age,email) values ($1,$2,$3)',[req.body.customer_name,req.body.age,req.body.email])
+        await client.query('insert into customer (customer_name,age,email) values ($1,$2,$3)',
+        [req.body.customer_name,req.body.age,req.body.email])
     res.send(req.body)
     }catch(e){
 
@@ -275,6 +277,14 @@ app.post('/loginpost',passport.authenticate('local',{
     failureFlash:true
 }));
 
+ //logout
+ app.get('/logout',(req,res)=>{
+    req.logOut(function(err){
+        console.log(err)
+        
+    })
+    res.redirect('/')
+})
 app.listen(port,()=>{
     console.log(`listening to the port no ${port}`)
 })

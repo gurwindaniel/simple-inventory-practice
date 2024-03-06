@@ -8,7 +8,7 @@
     <title>User</title>
 </head>
 <body>
-    <%- include('./nav.ejs') %>
+   
 <div class="container">
 
   <!-- Modal -->
@@ -30,8 +30,14 @@
                   <input type="password" name="password" required class="form-control" id="passwordid" >
                   
                 </div>
+                <div class="container">
+                  <% if (message.length > 0) { %>
+                      <div class="alert alert-danger" role="alert">
+                          <%= message %>
+                      </div>
+                  <% } %>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                 
                     <button type="submit" id="postuser" class="btn btn-primary">Login</button>
                   </div>
                 
