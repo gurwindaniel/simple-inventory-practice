@@ -228,9 +228,8 @@ app.get('/user',obj.auth,async(req,res)=>{
     try{
 
         const role_name=await client.query('select role_name from roles')
-        console.log(role_name.rows)
-     
         res.render('userform',{roles:role_name.rows})
+      
        
     }catch(e){
         console.log(`users error ${e}`)
@@ -239,6 +238,39 @@ app.get('/user',obj.auth,async(req,res)=>{
     }
 })
 
+//Loading users
+
+app.get('/loaduser',obj.auth,async(req,res)=>{
+
+    const client = await pool.connect()
+    try{
+
+       
+       let users;
+        // console.log(role_name.rows)
+        // console.log(req.user.role_id)
+        // res.render('userform',{roles:role_name.rows})
+        console.log(req.user.role_id)
+        if(req.user.role_id==1){
+
+            users=await client.query('select * from users join roles on users.role_id=roles.role_id')
+            res.send(users.rows).send(200)
+           
+        }
+        else{
+
+            users=await client.query('select users.user_id,users.name,users.email,users.password,users.user_date,roles.role_name from users join roles on users.role_id=roles.role_id where users.role_id in ($1)',[req.user.role_id])
+            res.send(users.rows).send(200)
+           
+        }
+       
+    }catch(e){
+        console.log(`users error ${e}`)
+    }finally{
+        client.release()
+    }
+
+})
 //User Form Submission
 
 app.post('/userpost',async(req,res)=>{

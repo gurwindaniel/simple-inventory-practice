@@ -1,5 +1,29 @@
 $(document).ready(function(){
 
+    //Loading users
+
+    $.ajax({
+        url:'/loaduser',
+        method:'get',
+        type:'json',
+        success:function(data){
+            console.log(data)
+            //user table
+            var user_table=$('#user_datatable').DataTable({
+                data:data,
+                columns:[
+                    {'data':'user_id','title':'USER ID'},
+                    {'data':'name','title':'Name'},
+                    {'data':'email','title':'Email'},
+                    {'data':'role_name','title':'Role'}
+                    
+                ]
+            })
+            //user table end
+        
+        }
+    })
+
     $('#userid').prop('disabled',true)
     
     const userinput=()=>{
