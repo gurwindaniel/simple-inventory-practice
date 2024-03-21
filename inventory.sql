@@ -102,7 +102,7 @@ ALTER TABLE users add column password varchar;
 INSERT INTO users (name,email,role_id,password) values ('admin','admin@gmail.com',1,'$2a$10$bxAXQfGYB9sWA.B03tG.AOpVVD/GPdRIryoCvFRcid7/wci1w7rcu');
 -- email : danielgurwin@gmail.com password : 123
 --email : admin@gmail.com password : 123
-
+--email : manager@gmail.com password : 123
 --Duplicate email
 
 CREATE OR REPLACE FUNCTION duplicate_email(eml varchar)

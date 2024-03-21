@@ -3,7 +3,7 @@ const session = require('express-session');
 const app=express()
 const port =process.env.PORT || 3000
 const {Pool}=require('pg')
-
+const fs=require('fs')
 require('dotenv').config()
 
 const bodyparser=require('body-parser')
@@ -106,10 +106,21 @@ app.use('/public',express.static('public'))
 
 //CLOUD CONNECTION STRING
 
-const pool=new Pool({
-    connectionString:process.env.CONNECTION_STRING
-})
+// const pool=new Pool({
+//     connectionString:process.env.CONNECTION_STRING
+// })
 
+const pool=new Pool({
+    user:process.env.user,
+    port:process.env.database_port,
+    password:process.env.password,
+    database:process.env.database,
+    host:process.env.host,
+    ssl:{
+     rejectUnauthorized:false,
+     ca:fs.readFileSync('./cert/ca.crt')
+    },
+ })
 
 
 //Login page
@@ -254,13 +265,13 @@ app.get('/loaduser',obj.auth,async(req,res)=>{
         if(req.user.role_id==1){
 
             users=await client.query('select * from users join roles on users.role_id=roles.role_id')
-            res.send(users.rows).send(200)
+            res.send(users.rows).status(200)
            
         }
         else{
 
             users=await client.query('select users.user_id,users.name,users.email,users.password,users.user_date,roles.role_name from users join roles on users.role_id=roles.role_id where users.role_id in ($1)',[req.user.role_id])
-            res.send(users.rows).send(200)
+            res.send(users.rows).status(200)
            
         }
        
