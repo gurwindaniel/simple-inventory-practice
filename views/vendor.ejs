@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('./head.ejs') %>
+
+    <title>GRN</title>
+</head>
+<body>
+    <%- include('./nav.ejs') %>
+   
+    <div class="container">
+        <!--Modal Start-->
+
+        <div class="container">
+            <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+           ADD GRN
+          </button>
+          
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/grnpost" method="post">
+                        <div class="mb-3">
+                            <label for="userid" class="form-label">Vendor ID</label>
+                            <input type="text" name="user_id" class="form-control" id="vendorid" >
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label for="nameid" class="form-label">Vendor Name</label>
+                            <input type="text" name="vendor_name" class="form-control" id="vendor_nameid" >
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label for="nameid" class="form-label">City</label>
+                            <input type="text" name="city" class="form-control" id="cityid" >
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label for="nameid" class="form-label">Province or State</label>
+                            <input type="text" name="province" class="form-control" id="provinceid" >
+                            
+                          </div>
+                          <div class="mb-3">
+                            <label for="nameid" class="form-label">Country</label>
+                            <input type="text" name="country" class="form-control" id="countryid" >
+                            
+                          </div>
+
+                          <div class="mb-3">
+                            <label for="nameid" class="form-label">Contact</label>
+                            <input type="text" name="contact" class="form-control" id="contactid" >
+                            
+                          </div>
+                          
+                       
+     
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" id="grnsave" class="btn btn-primary">ADD Vendor</button>
+                          </div>
+                        
+                      </form>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        
+        
+
+        <!--Modal Ends-->
+    </div>
+<%- include('./tail.ejs') %>
+<script src="../public/grn.js"></script>
+</body>
+</html>

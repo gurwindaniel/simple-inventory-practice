@@ -313,6 +313,20 @@ app.post('/userpost',async(req,res)=>{
 
 })
 
+//VENDOR PAGE CREATION
+
+app.get('/vendor',async(req,res)=>{
+    const client=await pool.connect()
+    try{
+
+        res.render('vendor')
+
+    }catch(e){
+           console.log(`vendor page render error ${e}`)
+    }finally{
+        client.release()
+    }
+})
 
 app.post('/loginpost',passport.authenticate('local',{
     successRedirect:'/home',
