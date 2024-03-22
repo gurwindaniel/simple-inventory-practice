@@ -20,6 +20,17 @@ values ('virat',35,'virat@gmail.com');
 SELECT * FROM customer;
 SELECT customer_name,age FROM customer;
 
+--CREATE VENDOR TABLE
+
+CREATE TABLE vendor(
+vendor_id serial primary key,
+vendor_name varchar(250),
+city varchar,
+province varchar,
+country varchar,
+product_id integer references product(product_id) 
+);
+
 --Product Page
 
 CREATE TABLE product(
