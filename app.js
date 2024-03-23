@@ -316,7 +316,7 @@ app.post('/userpost',async(req,res)=>{
 
 //VENDOR PAGE CREATION
 
-app.get('/vendor',async(req,res)=>{
+app.get('/vendor',obj.auth,async(req,res)=>{
     const client=await pool.connect()
     try{
 
@@ -329,15 +329,13 @@ app.get('/vendor',async(req,res)=>{
     }
 })
 
-var client_connect=async()=>{
-   
-    return await pool.connect()   
-}
+
 //Vendor Post Handling
-app.post('/vendorpost',async(req,res)=>{
+app.post('/vendorpost',obj.auth,async(req,res)=>{
 
    const client=await client_connect()
    const {vendor_name,city,province,country,contact}=req.body
+
 
     try{
         await client.query('insert into vendor (vendor_name,city,province,country,contact) values ($1,$2,$3,$4,$5)',[vendor_name,city,province,country,contact])
