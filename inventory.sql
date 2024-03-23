@@ -28,7 +28,7 @@ vendor_name varchar(250),
 city varchar,
 province varchar,
 country varchar,
-product_id integer references product(product_id) 
+contact integer
 );
 
 --Product Page
