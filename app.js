@@ -11,7 +11,8 @@ const bcryptjs=require('bcryptjs')
 const passport=require('passport')
 const LocalStrategy=require('passport-local').Strategy;
 const flash=require('connect-flash')
-const obj=require('./middleware/auth')
+const obj=require('./middleware/auth');
+const { count } = require('console');
 
 
 app.use(session({
@@ -328,6 +329,27 @@ app.get('/vendor',async(req,res)=>{
     }
 })
 
+var client_connect=async()=>{
+   
+    return await pool.connect()   
+}
+//Vendor Post Handling
+app.post('/vendorpost',async(req,res)=>{
+
+   const client=await client_connect()
+   const {vendor_name,city,province,country,contact}=req.body
+
+    try{
+        await client.query('insert into vendor (vendor_name,city,province,country,contact) values ($1,$2,$3,$4,$5)',[vendor_name,city,province,country,contact])
+        res.send(req.body).status(200)
+    
+
+    }catch(e){
+        console.log(`vendor post error ${e}`)
+    }finally{
+        await client.release()
+    }
+})
 app.post('/loginpost',passport.authenticate('local',{
     successRedirect:'/home',
     failureRedirect:'/',
