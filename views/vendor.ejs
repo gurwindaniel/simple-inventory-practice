@@ -28,9 +28,9 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/grnpost" method="post">
+                    <form action="/vendorpost" method="post">
                         <div class="mb-3">
-                            <label for="userid" class="form-label">Vendor ID</label>
+                            <label for="vendorid" class="form-label">Vendor ID</label>
                             <input type="text" name="user_id" class="form-control" id="vendorid" >
                             
                           </div>
@@ -62,10 +62,10 @@
                           </div>
                           
                        
-     
+                        <div id="message2"></div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" id="grnsave" class="btn btn-primary">ADD Vendor</button>
+                            <button type="button" id="vendorsave" class="btn btn-primary">ADD Vendor</button>
                           </div>
                         
                       </form>
@@ -80,6 +80,6 @@
         <!--Modal Ends-->
     </div>
 <%- include('./tail.ejs') %>
-<script src="../public/grn.js"></script>
+<script src="../public/vendor.js"></script>
 </body>
 </html>

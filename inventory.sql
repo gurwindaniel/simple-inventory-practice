@@ -28,7 +28,7 @@ vendor_name varchar(250),
 city varchar,
 province varchar,
 country varchar,
-contact integer
+contact varchar
 );
 
 --Product Page
