@@ -38,6 +38,9 @@ CREATE TABLE product(
     product_name varchar(100)
 );
 
+insert into product (product_name) values ('Rice');
+insert into product (product_name) values ('Wheat');
+
 --Inventory Page
 
 CREATE TABLE inventory(
@@ -45,6 +48,14 @@ CREATE TABLE inventory(
     product_id integer references product(product_id),
     quantity numeric check (quantity>=0),
     inventory_update timestamp default current_timestamp
+);
+
+--GRN PAGE
+CREATE TABLE GRN(
+    grn_id serial primary key,
+    vendor_id integer references vendor(vendor_id),
+    product_id integer references product(product_id),
+    grn_entry timestamp default current_timestamp
 );
 
 --Invoice Page

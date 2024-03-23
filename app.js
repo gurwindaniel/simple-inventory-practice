@@ -348,6 +348,24 @@ app.post('/vendorpost',obj.auth,async(req,res)=>{
         await client.release()
     }
 })
+
+//GRN PAGE
+
+app.get('/grnget',async(req,res)=>{
+    const client=await pool.connect()
+   
+    try{
+        const product_name=await client.query('select product_name from product')
+        const contact =await client.query('select contact,vendor_name from vendor')
+        res.send({productname:product_name.rows,
+            contactnumber:contact.rows}).status(200)
+    }catch(e){
+        console.log(`GRN POST ERROR ${e}`)
+    }finally{
+        client.release()
+    }
+})
+
 app.post('/loginpost',passport.authenticate('local',{
     successRedirect:'/home',
     failureRedirect:'/',
