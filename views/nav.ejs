@@ -18,8 +18,17 @@
           <li class="nav-item">
             <a class="nav-link" href="/user">Users</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
+        
+          <li class="nav-item ">
+            <div class="container" style="text-align: center;margin: .1rem .1rem;" >
+         <div>
+              <h5 class="fas fa-user"></h5>
+            </div>
+            <div>              
+            <a class="nav-link" href="/logout">Logout(<%= user.name %>)</a>
+          </div>
+        </div>
+            
           </li>
 
         </ul>

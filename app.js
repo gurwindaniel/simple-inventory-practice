@@ -105,7 +105,7 @@ app.use('/public',express.static('public'))
 //    password:'Trogen@2023'
 // })
 
-//CLOUD CONNECTION STRING
+//NODEJS TO ELEPHANT SQL CONNECTION 
 
 const pool=new Pool({
     connectionString:process.env.CONNECTION_STRING
@@ -128,7 +128,7 @@ const pool=new Pool({
 app.get('/',async(req,res)=>{
     try{
 
-       res.render('login',{message:req.flash('error')})
+       res.render('login',{message:req.flash('error'),user:req.user})
     }
     catch(e){
         console.log(`Error in getting a page ${e}`)
@@ -136,13 +136,13 @@ app.get('/',async(req,res)=>{
 })
 
 app.get('/home',obj.auth,async(req,res)=>{
-    res.render('home')
+    res.render('home',{user:req.user})
 })
 //customer page
 app.get('/customer',obj.auth,async(req,res)=>{
     try{
 
-       res.render('customer')
+       res.render('customer',{user:req.user})
     }
     catch(e){
         console.log(`Error in getting a page ${e}`)
@@ -240,7 +240,7 @@ app.get('/user',obj.auth,async(req,res)=>{
     try{
 
         const role_name=await client.query('select role_name from roles')
-        res.render('userform',{roles:role_name.rows})
+        res.render('userform',{roles:role_name.rows,user:req.user})
       
        
     }catch(e){
@@ -320,7 +320,7 @@ app.get('/vendor',obj.auth,async(req,res)=>{
     const client=await pool.connect()
     try{
 
-        res.render('vendor')
+        res.render('vendor',{user:req.user})
 
     }catch(e){
            console.log(`vendor page render error ${e}`)
