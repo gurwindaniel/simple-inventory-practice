@@ -9,6 +9,7 @@ $(document).ready(function(){
 
    $('#postuser').on('click',function(e){
     const login_value=login_val()
+    console.log(login_val)
     $.ajax({
         url:'/loginpost',
         type:'json',
